@@ -1,0 +1,85 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <style>
+    .modal-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .modal-content {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+    }
+    
+    .modal-title {
+      font-size: 24px;
+      color: #333333;
+      margin-bottom: 20px;
+    }
+    
+    .modal-text {
+      font-size: 18px;
+      color: #666666;
+      margin-bottom: 30px;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .modal-buttons a,
+    .modal-buttons button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      color: #ffffff;
+    }
+    
+    .modal-buttons a {
+      background-color: #4caf50;
+    }
+    
+    .modal-buttons a:hover,
+    .modal-buttons button:hover {
+      background-color: #45a049;
+    }
+    
+    .modal-buttons button {
+      background-color: #f44336;
+    }
+  </style>
+
+  <div class="modal-container">
+    <div class="modal-content">
+      <form action="" method="post">
+        {% csrf_token %}
+        <h2 class="modal-title">Delete Item</h2>
+        <p class="modal-text">Are you sure you want to delete "{{ obj }}" ?</p>
+        <div class="modal-buttons">
+          <a href="{{ request.META.HTTP_REFERER }}">Go Back</a>
+          <button type="submit">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

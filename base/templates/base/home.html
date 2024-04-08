@@ -1,0 +1,146 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .container {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      border: 1px solid red;
+    }
+    
+    .sidebar {
+      background-color: #f0f0f0;
+      width: 20%;
+      height: 100%;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    
+    .sidebar-item {
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      color: #333;
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none; /* Remove default link underline */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sidebar-item:hover {
+      background-color: #d3d3d3;
+    }
+    .room-list-wrapper {
+      display: flex;
+      height: 100%;
+      width: 80%;
+      flex-direction: column;
+    }
+    
+    .list-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 8%;
+      width: 100%;
+    }
+    .list-header p {
+      margin-left: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .room-list {
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      height: 92%;
+      width: 100%;
+    }
+    .room-card {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    
+    .room-name {
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    
+    .room-desc {
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+    
+    .username {
+      position: absolute;
+      bottom: 0px;
+      right: 5px;
+      background-color: #ccc;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    
+    .edit-button,
+    .delete-button {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-size: 0.6rem;
+    }
+    
+    .delete-button {
+      left: 40px;
+    }
+  </style>
+
+  <div class="container">
+    <div class="sidebar">
+      <a href="{% url 'home' %}" class="sidebar-item">All</a>
+
+      {% for topic in topics %}
+        <a href="{% url 'home' %}?q={{ topic }}" class="sidebar-item">{{ topic }}</a>
+      {% endfor %}
+    </div>
+    <div class="room-list-wrapper">
+      <div class="list-header">
+        <p>Available room - {{ room_count }}</p>
+      </div>
+
+      <div class="room-list">
+        {% for room in rooms %}
+          <div class="room-card">
+            <a href="{% url 'room' room.id %}">
+              <p class="room-name">{{ room.name }}</p>
+              <p class="room-desc">{{ room.description }}</p>
+              <p class="username">{{ room.host.username }}</p>
+
+              {% if request.user == room.host %}
+                <a href="{% url 'update-room' room.id %}" class="edit-button">EDIT</a>
+                <a href="{% url 'delete-room' room.id %}" class="delete-button">DELETE</a>
+              {% endif %}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

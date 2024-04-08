@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+    <title>JangoLearn</title>
+    <style>
+      html,
+      body {
+        position: relative;
+        height: 99.5dvh;
+        width: 99.5dvw;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+      }
+      
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        border: 1px solid black;
+        height: 90%;
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      {% include 'navbar.html' %}
+
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div style="display: flex;height: 80%; min-height: 80%; width: 100%; border: 1px solid green;">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+
+      {% include 'footer.html' %}
+    </div>
+  </body>
+</html>

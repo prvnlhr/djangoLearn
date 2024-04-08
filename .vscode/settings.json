@@ -1,0 +1,12 @@
+{
+    "editor.defaultFormatter": null,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "[django-html]": {
+        "editor.defaultFormatter": "junstyle.vscode-django-support",
+
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    
+}
